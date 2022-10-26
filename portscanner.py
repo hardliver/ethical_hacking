@@ -2,40 +2,37 @@ import socket
 from IPy import IP
 
 
-def scan(target):
-    converted_ip = check_ip(target)
-    print('\n[-_0 Scanning Target] {}'.format(target))
-    for port in range(1, 500):
-        scan_port(converted_ip, port)
+class PortScan:
+    banners = []
+    open_ports = []
 
-def check_ip(ip):
-    try:
-        IP(ip)
-        return ip
-    except ValueError:
-        return socket.gethostbyname(ip)
+    def __init__(self, target, port_num):
+        self.target = target
+        self.port_num = port_num
 
-def get_banner(s):
-    return s.recv(1024)
+    def scan(self):
+        for port in range(1, 500):
+            self.scan_port(port)
 
-def scan_port(ipaddress, port):
-    try:
-        sock = socket.socket()
-        sock.settimeout(0.5)
-        sock.connect((ipaddress, port))
+    def check_ip(self):
         try:
-            banner = get_banner(sock)
-            print('[+] Open port {} : {}'.format(port, banner.decode().strip('\n')))
+            IP(self.target)
+            return self.target
+        except ValueError:
+            return socket.gethostbyname(self.target)
+
+    def scan_port(self, port):
+        try:
+            converted_ip = self.check_ip()
+            sock = socket.socket()
+            sock.settimeout(0.5)
+            sock.connect((converted_ip, port))
+            self.open_ports.append(port)
+            try:
+                banner = sock.recv(1024).decode().strip('\n').strip('\r')
+                self.banners.append(banner)
+            except:
+                self.banners.append(' ')
+            sock.close()
         except:
-            print('[+] Open port {}'.format(port))
-    except:
-        pass
-
-
-if __name__ == '__main__':
-    targets = input('[+] Enter target\'s to scan: (split multiple targets with ,): ')
-    if ',' in targets:
-        for ip_addr in targets.split(','):
-            scan(ip_addr.strip(' '))
-    else:
-        scan(targets)
+            pass
