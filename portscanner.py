@@ -11,7 +11,7 @@ class PortScan:
         self.port_num = port_num
 
     def scan(self):
-        for port in range(1, 500):
+        for port in range(1, self.port_num):
             self.scan_port(port)
 
     def check_ip(self):
