@@ -5,7 +5,7 @@ from IPy import IP
 def scan(target):
     converted_ip = check_ip(target)
     print('\n[-_0 Scanning Target] {}'.format(target))
-    for port in range(1, 100):
+    for port in range(1, 500):
         scan_port(converted_ip, port)
 
 def check_ip(ip):
@@ -32,9 +32,10 @@ def scan_port(ipaddress, port):
         pass
 
 
-targets = input('[+] Enter target\'s to scan: (split multiple targets with ,): ')
-if ',' in targets:
-    for ip_addr in targets.split(','):
-        scan(ip_addr.strip(' '))
-else:
-    scan(targets)
+if __name__ == '__main__':
+    targets = input('[+] Enter target\'s to scan: (split multiple targets with ,): ')
+    if ',' in targets:
+        for ip_addr in targets.split(','):
+            scan(ip_addr.strip(' '))
+    else:
+        scan(targets)
