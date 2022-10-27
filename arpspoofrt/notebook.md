@@ -1,7 +1,7 @@
 ## Man in the middle - Arpspoofer
 
 - Router info
-    ```bash
+    ```python
     $ netstat -nr                   
     Kernel IP routing table
     Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
@@ -126,7 +126,7 @@
     ```
 
     攻擊前
-    ```cmd
+    ```python
     C:\Users\MT5>arp -a
 
     介面: 192.168.0.20 --- 0xd
@@ -147,7 +147,7 @@
     ```
 
     攻擊後
-    ```
+    ```python
     C:\Users\MT5>arp -a
 
     介面: 192.168.0.20 --- 0xd
