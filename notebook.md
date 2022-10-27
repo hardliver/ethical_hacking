@@ -17,42 +17,11 @@
 
 ## Man in the middle - Arpspoofer
 
-- scapy
+- Router info
     ```python
-    $ scapy
-
-    >>> ls(ARP)
-    hwtype     : XShortField                         = ('1')
-    ptype      : XShortEnumField                     = ('2048')
-    hwlen      : FieldLenField                       = ('None')
-    plen       : FieldLenField                       = ('None')
-    op         : ShortEnumField                      = ('1')
-    hwsrc      : MultipleTypeField (SourceMACField, StrFixedLenField) = ('None')
-    psrc       : MultipleTypeField (SourceIPField, SourceIP6Field, StrFixedLenField) = ('None')
-    hwdst      : MultipleTypeField (MACField, StrFixedLenField) = ('None')
-    pdst       : MultipleTypeField (IPField, IP6Field, StrFixedLenField) = ('None')
-    >>> packet = ARP(pdst='192.168.0.13')
-    >>> packet.show()
-    ###[ ARP ]### 
-    hwtype    = 0x1
-    ptype     = IPv4
-    hwlen     = None
-    plen      = None
-    op        = who-has
-    hwsrc     = 52:54:00:94:b6:27
-    psrc      = 192.168.0.31
-    hwdst     = 00:00:00:00:00:00
-    pdst      = 192.168.0.13
-    >>> packet.op = 2
-    >>> packet.show()
-    ###[ ARP ]### 
-    hwtype    = 0x1
-    ptype     = IPv4
-    hwlen     = None
-    plen      = None
-    op        = is-at
-    hwsrc     = 52:54:00:94:b6:27
-    psrc      = 192.168.0.31
-    hwdst     = 00:00:00:00:00:00
-    pdst      = 192.168.0.13
+    $ netstat -nr                   
+    Kernel IP routing table
+    Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+    0.0.0.0         192.168.0.1     0.0.0.0         UG        0 0          0 eth0
+    192.168.0.0     0.0.0.0         255.255.255.0   U         0 0          0 eth0
     ```
