@@ -168,3 +168,7 @@
     ```
 
     > 一小段時間後就會恢復
+
+
+- 攻擊前須先設定ip_forward<br/>
+    `$ echo 1 >> /proc/sys/net/ipv4/ip_forward`
