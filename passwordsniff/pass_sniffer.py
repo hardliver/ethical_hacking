@@ -6,10 +6,13 @@ import re
 iface = 'eth0'
 
 def get_login_pass():
-    pass
+    user = None
+    passwd = None
 
 def pkt_parser(packet):
-    pass
+    if packet.haslayer(TCP) and packet.haslayer(Raw) and packet.haslayer(IP):
+        body = str(packet[TCP].payload)
+        get_login_pass(body)
 
 try:
     sniff(iface=iface, prn=pkt_parser, store=0)
